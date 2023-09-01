@@ -10,6 +10,7 @@ class View {
     this.thems = fs.readFileSync('./topics/thems.txt', 'utf-8').split('\n');
     this.q1 = fs.readFileSync('./topics/q.txt', 'utf-8').split('\n');
     this.q2 = fs.readFileSync('./topics/raccoon_flashcard_data.txt', 'utf-8').split('\n');
+    this.cash = 0;
     this.i = 0;
     this.obj = obj;
   }
@@ -24,7 +25,7 @@ class View {
           1. ${this.thems[0]}
           2. ${this.thems[1]}
           3. ${this.thems[2]}
-          4. ${this.thems[3]}
+          4. Выйти
           `),
         },
       },
@@ -36,8 +37,14 @@ class View {
           this.getThem1(this.q1);
           break;
         case '2':
+          this.getThem1(this.q2);
           break;
         case '3':
+          this.getThem1(this.q3);
+          break;
+        case '4':
+          console.log('Пока!');
+          break;
         default:
           console.log('Темы под таким номером нет!');
           this.getFromConsole();
@@ -63,6 +70,8 @@ class View {
     prompt.get(da, (err, result) => {
       if (result.q1 === arr[this.i]) {
         console.log('GOOOOOOD JOB!!!!!');
+        this.cash += 1;
+        console.log(`Вы набрали ${this.cash} / $`);
         this.i += 1;
         this.getThem1(arr, this.i);
       } else {
