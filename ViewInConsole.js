@@ -11,6 +11,10 @@ const calambur = new View('pun.txt');
 prompt.message = colors.rainbow('<Questions!');
 prompt.delimiter = colors.green('>');
 
+const audio = player.play('./music/sound.mp3', function (err) {
+  if (err) throw err;
+});
+
 class ViewInConsole {
   constructor() {
     this.cash = 0;
@@ -20,14 +24,7 @@ class ViewInConsole {
     this.dataCalam = calambur.getQuestions();
   }
 
-  playMusic() {
-    player.play('./music/sound.mp3', function (err) {
-      if (err) throw err;
-    });
-  }
-
   getFromConsole() {
-    this.playMusic();
     prompt.start();
 
     const schema = {
@@ -57,6 +54,7 @@ class ViewInConsole {
           this.getThem1(this.dataCalam);
           break;
         case '4':
+          audio.kill();
           break;
         default:
           console.log('❌❌❌ Темы под таким номером нет! ❌❌❌');
@@ -70,6 +68,7 @@ class ViewInConsole {
   getThem1(arr, i) {
     if (this.i >= arr.length) {
       console.log('\x1b[34m', 'Пока! 👋👋👋');
+      audio.kill();
       console.log(`
       Вы победили, Лорд Людвиг не смог больше выдержать давления ваших слов и понял, 
       что он прогнулся перед вашей мудростью и силой ума. Его глаза заполнились страхом и ужасом, 
@@ -102,7 +101,7 @@ class ViewInConsole {
 
 const add = new ViewInConsole();
 console.log(`
-                    Добро пожаловать в Quiz!
+                                 Добро пожаловать в Quiz!
 Злой Лорд Людвиг Ван Джаваскриптыч тайно выкрал принцессу Консолю из рук ее отца Короля Бабаяна.
 Вы, славный принц, которому доверили спасти юную королеву! Вам удалось проследить за 
 Лордом до его жилища и вот, Вы стоите лицом к лицу - готовые сразится в битве умов и победить злодея 
@@ -111,5 +110,4 @@ console.log(`
 `);
 setTimeout(() => {
   add.getFromConsole();
-}, 1000);
-// console.log(add.dataWolves);
+}, 15000);
