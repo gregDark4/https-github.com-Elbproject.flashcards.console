@@ -3,9 +3,8 @@ const path = require('path');
 const { EOL } = require('os');
 
 class View {
-  constructor(model, questions = []) {
+  constructor(questions = []) {
     this.questions = questions;
-    this.model = model;
   }
 
   async getQuestions() {
